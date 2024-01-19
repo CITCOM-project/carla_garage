@@ -52,7 +52,8 @@ from leaderboard.utils.route_manipulation import interpolate_trajectory
 
 ROUTESCENARIO = ["RouteScenario"]
 
-SECONDS_GIVEN_PER_METERS = 0.8
+# SECONDS_GIVEN_PER_METERS = 0.8
+SECONDS_GIVEN_PER_METERS = 4
 INITIAL_SECONDS_DELAY = 5.0
 
 NUMBER_CLASS_TRANSLATION = {
@@ -252,7 +253,8 @@ class RouteScenario(BasicScenario):
         elevate_transform = self.route[0][0]
         elevate_transform.location.z += 0.5
 
-        ego_vehicle = CarlaDataProvider.request_new_actor("vehicle.lincoln.mkz2017", elevate_transform, rolename="hero")
+        # ego_vehicle = CarlaDataProvider.request_new_actor("vehicle.lincoln.mkz2017", elevate_transform, rolename="hero")
+        ego_vehicle = CarlaDataProvider.request_new_actor(os.environ["EGO_VEHICLE"], elevate_transform, rolename="hero")
 
         spectator = CarlaDataProvider.get_world().get_spectator()
         ego_trans = ego_vehicle.get_transform()
@@ -409,7 +411,8 @@ class RouteScenario(BasicScenario):
             scenario_configuration.trigger_points = [egoactor_trigger_position]
             scenario_configuration.subtype = definition["scenario_type"]
             scenario_configuration.ego_vehicles = [
-                ActorConfigurationData("vehicle.lincoln.mkz2017", ego_vehicle.get_transform(), "hero")
+                # ActorConfigurationData("vehicle.lincoln.mkz2017", ego_vehicle.get_transform(), "hero")
+                ActorConfigurationData(os.environ["EGO_VEHICLE"], ego_vehicle.get_transform(), "hero")
             ]
             route_var_name = "ScenarioRouteNumber{}".format(scenario_number)
             scenario_configuration.route_var_name = route_var_name

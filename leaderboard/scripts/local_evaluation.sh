@@ -1,19 +1,21 @@
 #!/bin/bash
 # Roach data collection
-while getopts "p:d:w:s:v:c:r:" flag; do
+while getopts "s:v:c:r:" flag; do
   case "$flag" in
-    # v) egoVehicle=$OPTARG;;
     c) carlaVersion=$OPTARG;;
+    s) scenarioIndex=${OPTARG};;
     r) routeIndex=$OPTARG;;
-    s) scenarioIndex=${OPTARG}
+    v) egoVehicle=$OPTARG;;
   esac
 done
 
 carlaVersion=${carlaVersion:-10}
+carlaVersion=${egoVehicle:-vehicle.lincoln.mkz2017}
 
 export CARLA_ROOT="../CARLA-$carlaVersion"
 export WORK_DIR=.
 
+export EGO_VEHICLE=$egoVehicle
 export CARLA_SERVER=${CARLA_ROOT}/CarlaUE4.sh
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla

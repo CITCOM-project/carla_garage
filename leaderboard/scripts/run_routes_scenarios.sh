@@ -7,6 +7,7 @@ do
       split=$(echo ${split[3]} | tr "." "\n")
       split=($split)
       r=${split[0]}
-      bash leaderboard/scripts/local_evaluation.sh -c 10 -r $r -s $s
+      echo bash leaderboard/scripts/local_evaluation.sh -c 10 -v vehicle.lincoln.mkz2017 -s $s -r $r
+      echo bash leaderboard/scripts/local_evaluation.sh -c 10 -v vehicle.bmw.isetta -s $s -r $r
     done
 done
