@@ -1,16 +1,16 @@
 #!/bin/bash
 # Roach data collection
-while getopts "s:v:c:r:" flag; do
+while getopts "c:v:s:r:" flag; do
   case "$flag" in
     c) carlaVersion=$OPTARG;;
+    v) egoVehicle=$OPTARG;;
     s) scenarioIndex=${OPTARG};;
     r) routeIndex=$OPTARG;;
-    v) egoVehicle=$OPTARG;;
   esac
 done
 
 carlaVersion=${carlaVersion:-10}
-carlaVersion=${egoVehicle:-vehicle.lincoln.mkz2017}
+egoVehicle=${egoVehicle:-vehicle.lincoln.mkz2017}
 
 export CARLA_ROOT="../CARLA-$carlaVersion"
 export WORK_DIR=.
@@ -23,6 +23,7 @@ export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-0.9.${carla
 export SCENARIO_RUNNER_ROOT=${WORK_DIR}/scenario_runner
 export LEADERBOARD_ROOT=${WORK_DIR}/leaderboard
 export PYTHONPATH="${CARLA_ROOT}/PythonAPI/carla/":"${SCENARIO_RUNNER_ROOT}":"${LEADERBOARD_ROOT}":${PYTHONPATH}
+echo $PYTHONPATH
 
 # export ROUTES=${WORK_DIR}/leaderboard/data/longest6.xml
 export ROUTES=${WORK_DIR}/leaderboard/data/citcom_data/Town01_Scenario${scenarioIndex}/route_${routeIndex}.xml
