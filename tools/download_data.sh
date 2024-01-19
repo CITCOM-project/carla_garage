@@ -13,6 +13,6 @@ down_load_unzip() {
 # Download 2022 dataset
 for scenario in ll_dataset_2023_05_10 rr_dataset_2023_05_10 lr_dataset_2023_05_10 rl_dataset_2023_05_10 s1_dataset_2023_05_10 s3_dataset_2023_05_10 s7_dataset_2023_05_10 s10_dataset_2023_05_10 s4_dataset_2023_05_10 s8_dataset_2023_05_10 s9_dataset_2023_05_10
 do
-  down_load_unzip "${scenario}" &
+  down_load_unzip "${scenario}" 
 done
 
