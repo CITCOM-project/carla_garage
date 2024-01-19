@@ -1,0 +1,5 @@
+<routes><route id="0" town="Town01">
+    <waypoint pitch="0.0" roll="0.0" x="131.389755" y="55.495007" yaw="179.993011" z="0.0" />
+    <waypoint pitch="0.0" roll="0.0" x="92.372459" y="16.149696" yaw="269.991272" z="0.0" />
+  </route>
+  </routes>
