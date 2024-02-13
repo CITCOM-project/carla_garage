@@ -9,6 +9,6 @@ do
       r=${split[0]}
       bash leaderboard/scripts/privileged_driver.sh -c 11 -v vehicle.lincoln.mkz2017 -s $s -r $r
       bash leaderboard/scripts/privileged_driver.sh -c 11 -v vehicle.bmw.isetta -s $s -r $r
-      find privileged/ -name "route_*" -type d -exec rm {} \;
+      find privileged/ -name "route_*" -type d -exec rm -r {} \;
     done
 done
