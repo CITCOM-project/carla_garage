@@ -27,13 +27,15 @@ lane_re = re.compile(
     r"Agent went outside its route lanes for about ([\d.]+) meters \(([\d.]+)% of the completed route\)"
 )
 
+root = "privileged"
+
 for c in [10, 11]:
     for v in ["vehicle.bmw.isetta", "vehicle.lincoln.mkz2017"]:
         for s in [1, 3, 4, 7, 8, 9]:
             for f in glob(f"leaderboard/data/citcom_data/Town01_Scenario{s}/*.xml"):
                 total += 1
                 r = f.split("_")[3].split(".")[0]
-                fname = f"results/c_{c}_v_{v}_s_{s}_r_{r}/data_collect_town01_results.json"
+                fname = f"{root}/c_{c}_v_{v}_s_{s}_r_{r}/data_collect_town01_results.json"
                 run_command = f"bash leaderboard/scripts/local_evaluation.sh -c {c} -v {v} -s {s} -r {r}"
                 if not os.path.exists(fname):
                     print(f"# missing data for {fname}")
@@ -67,6 +69,7 @@ print(f"df should have {total} rows")
 
 
 data = pd.DataFrame(data)
+print(data)
 data["route_id"] = [f"RouteScenario_{i}" for i in data["index"]]
 data.sort_index(inplace=True)
 data.index.name = None
@@ -79,16 +82,16 @@ data["pedestrians"] = int(args["scenario"] == 3)
 data["simulation_time"] = data.pop("duration_game")
 data["system_time"] = data.pop("duration_system")
 
-data.to_csv("results/data.csv")
+data.to_csv(f"{root}/data.csv")
 print(f"data has {len(data)} rows")
 
 infractions = data.filter(regex="collisions_.*|red_light|.*_infraction")
 data["infraction_name"] = pd.from_dummies(infractions[infractions.columns], default_category="none")
 
-dag = nx.Graph(nx.nx_pydot.read_dot("../case-studies/new/dag.dot"))
+dag = nx.Graph(nx.nx_pydot.read_dot("../studied-cases/dag.dot"))
 
 for n in sorted(dag.nodes):
     print(n.ljust(18), n in data)
 print(sorted(data.columns))
 
-data.to_csv("results/data.csv")
+data.to_csv(f"{root}/data.csv")
