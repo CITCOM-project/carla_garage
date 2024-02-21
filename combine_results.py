@@ -55,6 +55,7 @@ for c in [10, 11]:
                     # record.pop("friction")
                     infractions = record.pop("infractions")
                     record = record | {k: len(v) for k, v in infractions.items()}
+                    record["scenario"] = s
                     record["outside_route_lanes"] = (
                         float(lane_re.match(infractions["outside_route_lanes"][0]).group(2))
                         if len(infractions["outside_route_lanes"]) > 0
@@ -70,7 +71,8 @@ print(f"df should have {total} rows")
 
 data = pd.DataFrame(data)
 print(data)
-data["route_id"] = [f"RouteScenario_{i}" for i in data["index"]]
+data["route_id"] = [f"RouteScenario_{s}" for s in data["scenario"]]
+data["route_id"] = [f"{r}_{i}" for r in data["route_id"]]
 data.sort_index(inplace=True)
 data.index.name = None
 data["completion_score"] = data.pop("score_route")
