@@ -71,8 +71,7 @@ print(f"df should have {total} rows")
 
 data = pd.DataFrame(data)
 print(data)
-data["route_id"] = [f"RouteScenario_{s}" for s in data["scenario"]]
-data["route_id"] = [f"{r}_{i}" for r in data["route_id"]]
+data["route_id"] = [f"RouteScenario_{s}_{i}" for s, i in zip(data["scenario"], data["route_id"])]
 data.sort_index(inplace=True)
 data.index.name = None
 data["completion_score"] = data.pop("score_route")
